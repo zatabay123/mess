@@ -1,0 +1,11 @@
+#chatbox{
+background-image: url('/image/3f7ea289bd6d0c33557c.jpg'); /* Đường dẫn ảnh */
+    background-size: cover;  /* Ảnh phủ kín */
+    background-position: center; /* Căn giữa */
+    background-repeat: no-repeat; /* Không lặp ảnh */
+    width: 400px; /* Kích thước khung chat */
+    height: 500px;
+    border-radius: 10px; /* Bo tròn góc */
+    padding: 10px;
+    overflow: auto;
+}
