@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Đồ Du Lịch - Cà Rốt Nè</title>
+    <link rel="stylesheet" href="global-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Map page specific styles */
+        .map-hero {
+            height: 40vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?w=1800&auto=format') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .map-hero-content {
+            max-width: 800px;
+            padding: 0 var(--spacing-lg);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .map-hero-content h1 {
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .map-hero-content p {
+            font-size: var(--text-lg);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .map-controls {
+            padding: var(--spacing-lg);
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            max-width: 1200px;
+            margin: -30px auto 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .map-filters {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .map-filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .map-filter-label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--gray-dark);
+        }
+        
+        .map-filter-input {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: var(--text-md);
+            transition: all 0.3s ease;
+        }
+        
+        .map-filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+        
+        .map-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+        
+        .map-category {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: var(--gray-lighter);
+            color: var(--gray-dark);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .map-category.active {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .map-category:hover {
+            transform: translateY(-2px);
+        }
+        
+        .map-category i {
+            font-size: 14px;
+        }
+        
+        .map-container {
+            height: 600px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .map-legend {
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-lg);
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            max-width: 1200px;
+            margin: 30px auto 60px;
+        }
+        
+        .map-legend-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--dark);
+        }
+        
+        .map-legend-items {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+        }
+        
+        .map-legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+        }
+        
+        .legend-text {
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+        }
+        
+        .popular-destinations {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--gray-lighter);
+        }
+        
+        .destination-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .custom-popup .leaflet-popup-content {
+            width: 250px;
+            padding: 0;
+        }
+        
+        .popup-content {
+            padding: 0;
+        }
+        
+        .popup-image {
+            height: 120px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        
+        .popup-details {
+            padding: 12px;
+        }
+        
+        .popup-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+        
+        .popup-location {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .popup-description {
+            font-size: 13px;
+            color: var(--gray-dark);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .popup-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 992px) {
+            .map-filters {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .map-legend-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .destination-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .map-filters {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+            
+            .map-legend-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .destination-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-categories {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Cà Rốt Nè" class="logo-img">
+                <span class="logo-text">Cà Rốt Nè</span>
+            </a>
+            
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Trong nước <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="vietnam.html" class="dropdown-item">Miền Bắc</a>
+                            <a href="vietnam.html" class="dropdown-item">Miền Trung</a>
+                            <a href="vietnam.html" class="dropdown-item">Miền Nam</a>
+                            <a href="vietnam.html" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Châu Á <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="tokyo.html" class="dropdown-item">Nhật Bản</a>
+                            <a href="seoul.html" class="dropdown-item">Hàn Quốc</a>
+                            <a href="#" class="dropdown-item">Thái Lan</a>
+                            <a href="#" class="dropdown-item">Singapore</a>
+                            <a href="#" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Châu Âu <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="spain.html" class="dropdown-item">Tây Ban Nha</a>
+                            <a href="#" class="dropdown-item">Pháp</a>
+                            <a href="#" class="dropdown-item">Ý</a>
+                            <a href="#" class="dropdown-item">Đức</a>
+                            <a href="#" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="map.html" class="nav-link active">Bản đồ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="blog.html" class="nav-link">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Liên hệ</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="map-hero">
+        <div class="map-hero-content">
+            <h1>Khám Phá Điểm Đến</h1>
+            <p>Tìm kiếm và khám phá những điểm du lịch hấp dẫn trên khắp thế giới</p>
+        </div>
+    </section>
+    
+    <!-- Map Controls Section -->
+    <div class="container">
+        <div class="map-controls">
+            <div class="map-filters">
+                <div class="map-filter-group">
+                    <label for="region-filter" class="map-filter-label">Khu vực</label>
+                    <select id="region-filter" class="map-filter-input">
+                        <option value="all">Tất cả khu vực</option>
+                        <option value="asia">Châu Á</option>
+                        <option value="europe">Châu Âu</option>
+                        <option value="vietnam">Việt Nam</option>
+                    </select>
+                </div>
+                
+                <div class="map-filter-group">
+                    <label for="country-filter" class="map-filter-label">Quốc gia</label>
+                    <select id="country-filter" class="map-filter-input">
+                        <option value="all">Tất cả quốc gia</option>
+                        <option value="vietnam">Việt Nam</option>
+                        <option value="japan">Nhật Bản</option>
+                        <option value="korea">Hàn Quốc</option>
+                        <option value="spain">Tây Ban Nha</option>
+                    </select>
+                </div>
+                
+                <div class="map-filter-group">
+                    <label for="destination-search" class="map-filter-label">Tìm kiếm</label>
+                    <input type="text" id="destination-search" class="map-filter-input" placeholder="Nhập tên điểm đến...">
+                </div>
+                
+                <div class="map-filter-group">
+                    <label for="destination-type" class="map-filter-label">Loại điểm đến</label>
+                    <select id="destination-type" class="map-filter-input">
+                        <option value="all">Tất cả</option>
+                        <option value="nature">Thiên nhiên</option>
+                        <option value="city">Thành phố</option>
+                        <option value="culture">Văn hóa</option>
+                        <option value="beach">Biển</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="map-categories">
+                <div class="map-category active" data-category="attraction">
+                    <i class="fas fa-camera"></i> Điểm tham quan
+                </div>
+                <div class="map-category" data-category="hotel">
+                    <i class="fas fa-hotel"></i> Khách sạn
+                </div>
+                <div class="map-category" data-category="restaurant">
+                    <i class="fas fa-utensils"></i> Nhà hàng
+                </div>
+                <div class="map-category" data-category="shopping">
+                    <i class="fas fa-shopping-bag"></i> Mua sắm
+                </div>
+                <div class="map-category" data-category="activities">
+                    <i class="fas fa-hiking"></i> Hoạt động
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Map Container -->
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    
+    <!-- Map Legend -->
+    <div class="container">
+        <div class="map-legend">
+            <h3 class="map-legend-title">Chú thích bản đồ</h3>
+            
+            <div class="map-legend-items">
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #FF6B6B;">
+                        <i class="fas fa-camera"></i>
+                    </span>
+                    <span class="legend-text">Điểm tham quan</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #3498DB;">
+                        <i class="fas fa-hotel"></i>
+                    </span>
+                    <span class="legend-text">Khách sạn</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #2ECC71;">
+                        <i class="fas fa-utensils"></i>
+                    </span>
+                    <span class="legend-text">Nhà hàng</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #F1C40F;">
+                        <i class="fas fa-shopping-bag"></i>
+                    </span>
+                    <span class="legend-text">Mua sắm</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #9B59B6;">
+                        <i class="fas fa-hiking"></i>
+                    </span>
+                    <span class="legend-text">Hoạt động</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #E67E22;">
+                        <i class="fas fa-plane"></i>
+                    </span>
+                    <span class="legend-text">Sân bay</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #1ABC9C;">
+                        <i class="fas fa-train"></i>
+                    </span>
+                    <span class="legend-text">Ga tàu</span>
+                </div>
+                
+                <div class="map-legend-item">
+                    <span class="legend-icon" style="background-color: #34495E;">
+                        <i class="fas fa-bus"></i>
+                    </span>
+                    <span class="legend-text">Bến xe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popular Destinations Section -->
+    <section class="popular-destinations">
+        <div class="container">
+            <h2 class="section-title">Điểm Đến Nổi Bật</h2>
+            <p class="section-subtitle">Khám phá những điểm du lịch hấp dẫn được nhiều du khách yêu thích</p>
+            
+            <div class="destination-cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=800&auto=format" alt="Hạ Long">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vịnh Hạ Long</h3>
+                        <p class="card-text">Khám phá vẻ đẹp kỳ vĩ của vịnh Hạ Long với hàng nghìn hòn đảo đá vôi.</p>
+                        <a href="vietnam.html" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=800&auto=format" alt="Tokyo">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tokyo</h3>
+                        <p class="card-text">Khám phá sự kết hợp giữa truyền thống và hiện đại tại thủ đô Nhật Bản.</p>
+                        <a href="tokyo.html" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1538485399081-7c8ba554ace3?w=800&auto=format" alt="Seoul">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Seoul</h3>
+                        <p class="card-text">Trải nghiệm văn hóa K-pop, ẩm thực đường phố và cảnh quan đô thị ấn tượng.</p>
+                        <a href="seoul.html" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=800&auto=format" alt="Madrid">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Madrid</h3>
+                        <p class="card-text">Đắm mình trong văn hóa, kiến trúc và ẩm thực độc đáo của thủ đô Tây Ban Nha.</p>
+                        <a href="spain.html" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Về Cà Rốt Nè</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Tầm nhìn & Sứ mệnh</a></li>
+                        <li><a href="#">Đội ngũ</a></li>
+                        <li><a href="#">Đối tác</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Tour du lịch</h3>
+                    <ul class="footer-list">
+                        <li><a href="vietnam.html">Việt Nam</a></li>
+                        <li><a href="tokyo.html">Nhật Bản</a></li>
+                        <li><a href="seoul.html">Hàn Quốc</a></li>
+                        <li><a href="spain.html">Tây Ban Nha</a></li>
+                        <li><a href="#">Xem tất cả</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Hỗ trợ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Chính sách đặt tour</a></li>
+                        <li><a href="#">Chính sách hoàn hủy</a></li>
+                        <li><a href="#">Quyền riêng tư</a></li>
+                        <li><a href="contact.html">Liên hệ hỗ trợ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-list">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Nguyễn Huệ, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone mr-2"></i> 1900 1234</li>
+                        <li><i class="fas fa-envelope mr-2"></i> info@carotne.vn</li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Cà Rốt Nè Travel. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbox-content">
+            <div class="chatbox-header">
+                <div class="chatbox-title">Hỗ trợ trực tuyến</div>
+                <div class="chatbox-close"><i class="fas fa-times"></i></div>
+            </div>
+            
+            <div class="chatbox-messages">
+                <!-- Messages will be added dynamically -->
+            </div>
+            
+            <div class="chatbox-input">
+                <form>
+                    <input type="text" class="chat-input" placeholder="Nhập tin nhắn...">
+                    <button type="submit" class="chat-submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="main.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

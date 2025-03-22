@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ - Cà Rốt Nè</title>
+    <link rel="stylesheet" href="global-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Contact page specific styles */
+        .contact-hero {
+            height: 40vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1800&auto=format') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .contact-hero-content {
+            max-width: 800px;
+            padding: 0 var(--spacing-lg);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .contact-hero-content h1 {
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .contact-hero-content p {
+            font-size: var(--text-lg);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .contact-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .contact-info {
+            animation: fadeInLeft 1s ease;
+        }
+        
+        .contact-info-heading {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .contact-info-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .contact-info-text {
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.7;
+            color: var(--gray-dark);
+        }
+        
+        .contact-details {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .contact-detail-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--spacing-md);
+            font-size: var(--text-xl);
+            flex-shrink: 0;
+        }
+        
+        .contact-detail-content {
+            flex-grow: 1;
+        }
+        
+        .contact-detail-label {
+            font-weight: 700;
+            font-size: var(--text-md);
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark);
+        }
+        
+        .contact-detail-value {
+            font-size: var(--text-md);
+            color: var(--gray-dark);
+        }
+        
+        .contact-form-container {
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xl);
+            animation: fadeInRight 1s ease;
+        }
+        
+        .contact-form-heading {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--gray-dark);
+        }
+        
+        .form-input,
+        .form-textarea {
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: var(--text-md);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            padding: var(--spacing-md);
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--text-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-md);
+        }
+        
+        .form-submit:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .social-contact {
+            margin-top: var(--spacing-xl);
+        }
+        
+        .social-contact-heading {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--dark);
+        }
+        
+        .social-contact-icons {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .social-contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--gray-lighter);
+            color: var(--gray-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xl);
+            transition: all 0.3s ease;
+        }
+        
+        .social-contact-icon:hover {
+            background-color: var(--primary);
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+        
+        .offices-section {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--gray-lighter);
+        }
+        
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .office-card {
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+        
+        .office-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .office-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .office-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .office-card:hover .office-image img {
+            transform: scale(1.1);
+        }
+        
+        .office-content {
+            padding: var(--spacing-lg);
+        }
+        
+        .office-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark);
+        }
+        
+        .office-address {
+            margin-bottom: var(--spacing-md);
+            color: var(--gray-dark);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+        
+        .office-contact {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .office-contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+        }
+        
+        .office-contact-item i {
+            color: var(--primary);
+            width: 16px;
+        }
+        
+        .btn-view-map {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--gray-lighter);
+            color: var(--gray-dark);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view-map:hover {
+            background-color: var(--primary);
+            color: var(--light);
+            transform: translateY(-2px);
+        }
+        
+        .faq-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .faq-container {
+            max-width: var(--container-lg);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .faq-item {
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: var(--spacing-lg);
+            background-color: var(--light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--gray-lighter);
+        }
+        
+        .faq-answer {
+            padding: 0 var(--spacing-lg);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: var(--spacing-lg);
+            max-height: 300px;
+        }
+        
+        .faq-item.active .faq-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .offices-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .offices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-container {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Cà Rốt Nè" class="logo-img">
+                <span class="logo-text">Cà Rốt Nè</span>
+            </a>
+            
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Trong nước <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="vietnam.html" class="dropdown-item">Miền Bắc</a>
+                            <a href="vietnam.html" class="dropdown-item">Miền Trung</a>
+                            <a href="vietnam.html" class="dropdown-item">Miền Nam</a>
+                            <a href="vietnam.html" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Châu Á <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="tokyo.html" class="dropdown-item">Nhật Bản</a>
+                            <a href="seoul.html" class="dropdown-item">Hàn Quốc</a>
+                            <a href="#" class="dropdown-item">Thái Lan</a>
+                            <a href="#" class="dropdown-item">Singapore</a>
+                            <a href="#" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Châu Âu <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="spain.html" class="dropdown-item">Tây Ban Nha</a>
+                            <a href="#" class="dropdown-item">Pháp</a>
+                            <a href="#" class="dropdown-item">Ý</a>
+                            <a href="#" class="dropdown-item">Đức</a>
+                            <a href="#" class="dropdown-item">Tất cả</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="map.html" class="nav-link">Bản đồ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="blog.html" class="nav-link">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link active">Liên hệ</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="contact-hero-content">
+            <h1>Liên Hệ Với Chúng Tôi</h1>
+            <p>Chúng tôi luôn sẵn sàng hỗ trợ và giải đáp mọi thắc mắc của bạn</p>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-info-heading">Thông Tin Liên Hệ</h2>
+                <p class="contact-info-text">Chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn. Hãy liên hệ với chúng tôi qua các kênh dưới đây hoặc gửi tin nhắn trực tiếp qua form.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-detail-content">
+                            <div class="contact-detail-label">Địa chỉ</div>
+                            <div class="contact-detail-value">123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-detail-content">
+                            <div class="contact-detail-label">Hotline</div>
+                            <div class="contact-detail-value">1900 1234</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-detail-content">
+                            <div class="contact-detail-label">Email</div>
+                            <div class="contact-detail-value">info@carotne.vn</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="contact-detail-content">
+                            <div class="contact-detail-label">Giờ làm việc</div>
+                            <div class="contact-detail-value">Thứ 2 - Thứ 6: 8:00 - 17:30<br>Thứ 7: 8:00 - 12:00<br>Chủ Nhật: Nghỉ</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-contact">
+                    <h3 class="social-contact-heading">Kết nối với chúng tôi</h3>
+                    <div class="social-contact-icons">
+                        <a href="#" class="social-contact-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-contact-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-contact-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form-container">
+                <h2 class="contact-form-heading">Gửi tin nhắn cho chúng tôi</h2>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Họ và tên *</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Chủ đề *</label>
+                        <select id="subject" name="subject" class="form-input" required>
+                            <option value="">-- Chọn chủ đề --</option>
+                            <option value="booking">Đặt tour</option>
+                            <option value="info">Thông tin tour</option>
+                            <option value="feedback">Phản hồi dịch vụ</option>
+                            <option value="partner">Hợp tác kinh doanh</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Nội dung tin nhắn *</label>
+                        <textarea id="message" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Gửi tin nhắn</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Offices Section -->
+    <section class="offices-section">
+        <div class="container">
+            <h2 class="section-title">Văn Phòng Của Chúng Tôi</h2>
+            <p class="section-subtitle">Ghé thăm văn phòng Cà Rốt Nè tại các thành phố lớn</p>
+            
+            <div class="offices-grid">
+                <div class="office-card">
+                    <div class="office-image">
+                        <img src="https://images.unsplash.com/photo-1616587894289-86480e533129?w=800&auto=format" alt="Văn phòng Hồ Chí Minh">
+                    </div>
+                    <div class="office-content">
+                        <h3 class="office-title">Hồ Chí Minh (Trụ sở chính)</h3>
+                        <p class="office-address">123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+                        <div class="office-contact">
+                            <div class="office-contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>1900 1234</span>
+                            </div>
+                            <div class="office-contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>hcm@carotne.vn</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-view-map">Xem trên bản đồ</a>
+                    </div>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-image">
+                        <img src="https://images.unsplash.com/photo-1599909661323-7198623ff297?w=800&auto=format" alt="Văn phòng Hà Nội">
+                    </div>
+                    <div class="office-content">
+                        <h3 class="office-title">Hà Nội</h3>
+                        <p class="office-address">45 Hàng Bài, Quận Hoàn Kiếm, Hà Nội</p>
+                        <div class="office-contact">
+                            <div class="office-contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>024 7300 1234</span>
+                            </div>
+                            <div class="office-contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>hanoi@carotne.vn</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-view-map">Xem trên bản đồ</a>
+                    </div>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-image">
+                        <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&auto=format" alt="Văn phòng Đà Nẵng">
+                    </div>
+                    <div class="office-content">
+                        <h3 class="office-title">Đà Nẵng</h3>
+                        <p class="office-address">78 Bạch Đằng, Quận Hải Châu, Đà Nẵng</p>
+                        <div class="office-contact">
+                            <div class="office-contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>0236 3888 999</span>
+                            </div>
+                            <div class="office-contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>danang@carotne.vn</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-view-map">Xem trên bản đồ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
+            <p class="section-subtitle">Tìm kiếm câu trả lời nhanh cho những thắc mắc phổ biến</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Làm thế nào để đặt tour trên website của Cà Rốt Nè?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Để đặt tour trên website Cà Rốt Nè, bạn có thể thực hiện theo các bước sau:</p>
+                        <ol>
+                            <li>Chọn tour du lịch bạn muốn đặt</li>
+                            <li>Nhấn vào nút "Đặt tour" hoặc "Đặt ngay"</li>
+                            <li>Điền thông tin cá nhân và thông tin liên hệ</li>
+                            <li>Chọn phương thức thanh toán</li>
+                            <li>Xác nhận đặt tour</li>
+                        </ol>
+                        <p>Sau khi hoàn tất, bạn sẽ nhận được email xác nhận đặt tour.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Chính sách hoàn hủy tour của Cà Rốt Nè như thế nào?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chính sách hoàn hủy tour của Cà Rốt Nè áp dụng như sau:</p>
+                        <ul>
+                            <li>Hủy trước 30 ngày: Hoàn 100% tiền cọc</li>
+                            <li>Hủy từ 15-29 ngày: Hoàn 70% tổng giá trị tour</li>
+                            <li>Hủy từ 7-14 ngày: Hoàn 50% tổng giá trị tour</li>
+                            <li>Hủy từ 3-6 ngày: Hoàn 30% tổng giá trị tour</li>
+                            <li>Hủy trong vòng 48 giờ: Không hoàn tiền</li>
+                        </ul>
+                        <p>Lưu ý: Một số tour đặc biệt có thể có chính sách riêng được nêu rõ khi đặt tour.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Tôi cần chuẩn bị những giấy tờ gì khi đi du lịch nước ngoài?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Khi đi du lịch nước ngoài, bạn cần chuẩn bị các giấy tờ sau:</p>
+                        <ul>
+                            <li>Hộ chiếu còn hạn ít nhất 6 tháng tính từ ngày kết thúc chuyến đi</li>
+                            <li>Visa (nếu quốc gia đó yêu cầu)</li>
+                            <li>Vé máy bay khứ hồi</li>
+                            <li>Voucher khách sạn hoặc xác nhận đặt phòng</li>
+                            <li>Bảo hiểm du lịch</li>
+                            <li>Giấy tờ tùy thân (CMND/CCCD)</li>
+                            <li>Tiền mặt và thẻ tín dụng/ghi nợ quốc tế</li>
+                        </ul>
+                        <p>Tùy vào từng quốc gia, có thể có yêu cầu bổ sung. Đội ngũ tư vấn của Cà Rốt Nè sẽ hỗ trợ bạn chuẩn bị đầy đủ giấy tờ cần thiết.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Cà Rốt Nè có hỗ trợ làm visa không?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Có, Cà Rốt Nè cung cấp dịch vụ hỗ trợ làm visa cho khách hàng. Chúng tôi sẽ tư vấn và hỗ trợ bạn trong quá trình xin visa, bao gồm:</p>
+                        <ul>
+                            <li>Tư vấn thủ tục và hồ sơ cần thiết</li>
+                            <li>Kiểm tra và hoàn thiện hồ sơ</li>
+                            <li>Đặt lịch phỏng vấn (nếu cần)</li>
+                            <li>Theo dõi trạng thái hồ sơ</li>
+                        </ul>
+                        <p>Dịch vụ này có thể đi kèm với gói tour hoặc được cung cấp riêng với mức phí hợp lý.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Tôi có thể thanh toán tour bằng những phương thức nào?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Cà Rốt Nè cung cấp nhiều phương thức thanh toán linh hoạt:</p>
+                        <ul>
+                            <li>Thanh toán trực tuyến qua thẻ tín dụng/ghi nợ (Visa, Mastercard, JCB)</li>
+                            <li>Chuyển khoản ngân hàng</li>
+                            <li>Ví điện tử (Momo, ZaloPay, VNPay)</li>
+                            <li>Thanh toán tại văn phòng (tiền mặt, quẹt thẻ)</li>
+                            <li>Trả góp qua các ngân hàng đối tác (0% lãi suất cho một số chương trình)</li>
+                        </ul>
+                        <p>Bạn có thể chọn phương thức thanh toán thuận tiện nhất khi tiến hành đặt tour.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Đăng ký nhận thông tin ưu đãi</h2>
+                <p class="newsletter-text">Nhận thông tin về các chương trình khuyến mãi và cẩm nang du lịch hữu ích mới nhất.</p>
+                
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn" class="newsletter-input" required>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Về Cà Rốt Nè</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Tầm nhìn & Sứ mệnh</a></li>
+                        <li><a href="#">Đội ngũ</a></li>
+                        <li><a href="#">Đối tác</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Tour du lịch</h3>
+                    <ul class="footer-list">
+                        <li><a href="vietnam.html">Việt Nam</a></li>
+                        <li><a href="tokyo.html">Nhật Bản</a></li>
+                        <li><a href="seoul.html">Hàn Quốc</a></li>
+                        <li><a href="spain.html">Tây Ban Nha</a></li>
+                        <li><a href="#">Xem tất cả</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Hỗ trợ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Chính sách đặt tour</a></li>
+                        <li><a href="#">Chính sách hoàn hủy</a></li>
+                        <li><a href="#">Quyền riêng tư</a></li>
+                        <li><a href="contact.html">Liên hệ hỗ trợ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-list">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Nguyễn Huệ, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone mr-2"></i> 1900 1234</li>
+                        <li><i class="fas fa-envelope mr-2"></i> info@carotne.vn</li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Cà Rốt Nè Travel. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbox-content">
+            <div class="chatbox-header">
+                <div class="chatbox-title">Hỗ trợ trực tuyến</div>
+                <div class="chatbox-close"><i class="fas fa-times"></i></div>
+            </div>
+            
+            <div class="chatbox-messages">
+                <!-- Messages will be added dynamically -->
+            </div>
+            
+            <div class="chatbox-input">
+                <form>
+                    <input type="text" class="chat-input" placeholder="Nhập tin nhắn...">
+                    <button type="submit" class="chat-submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Contact Form Validation
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !subject || !message) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!emailRegex.test(email)) {
+                alert('Vui lòng nhập địa chỉ email hợp lệ');
+                return;
+            }
+            
+            // Store in localStorage for demo purposes
+            const contactMessage = {
+                name: name,
+                email: email,
+                phone: document.getElementById('phone').value,
+                subject: subject,
+                message: message,
+                date: new Date().toISOString()
+            };
+            
+            const savedMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+            savedMessages.push(contactMessage);
+            localStorage.setItem('contactMessages', JSON.stringify(savedMessages));
+            
+            // Show success message
+            alert('Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Close other open FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo - Thành Phố Tương Lai Với Truyền Thống Lâu Đời - Cà Rốt Nè</title>
+    <link rel="stylesheet" href="global-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Tokyo page specific styles */
+        .tokyo-hero {
+            position: relative;
+            height: 70vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=1800&h=900&fit=crop&auto=format') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .tokyo-hero-content {
+            max-width: 800px;
+            padding: 0 var(--spacing-lg);
+            animation: fadeInUp 1s ease;
+            z-index: 1;
+        }
+        
+        .tokyo-hero-content h1 {
+            font-size: var(--text-5xl);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tokyo-hero-content p {
+            font-size: var(--text-xl);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tokyo-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--light), transparent);
+        }
+        
+        .tokyo-quick-facts {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            flex-wrap: wrap;
+        }
+        
+        .quick-fact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: var(--spacing-md);
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            width: 160px;
+            animation: fadeIn 1s ease;
+            border-top: 3px solid #BC002D; /* Japanese flag red */
+        }
+        
+        .quick-fact-icon {
+            font-size: var(--text-3xl);
+            color: #BC002D; /* Japanese flag red */
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .quick-fact-value {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .quick-fact-label {
+            font-size: var(--text-sm);
+            color: var(--gray);
+        }
+        
+        .about-tokyo {
+            background-color: var(--gray-lighter);
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .about-tokyo-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .about-tokyo-text h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-md);
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .about-tokyo-text h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #BC002D;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .about-tokyo-text p {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+        
+        .about-tokyo-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .about-tokyo-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 50px 50px 0;
+            border-color: transparent #BC002D transparent transparent;
+            z-index: 1;
+        }
+        
+        .about-tokyo-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-tokyo-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .districts-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .districts-heading {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .districts-heading h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+        }
+        
+        .districts-heading h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #BC002D;
+            margin: var(--spacing-sm) auto 0;
+        }
+        
+        .districts-heading p {
+            font-size: var(--text-lg);
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .districts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .district-card {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--light);
+            animation: fadeIn 1s ease;
+            animation-fill-mode: both;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .district-card:nth-child(1) { animation-delay: 0.1s; }
+        .district-card:nth-child(2) { animation-delay: 0.3s; }
+        .district-card:nth-child(3) { animation-delay: 0.5s; }
+        .district-card:nth-child(4) { animation-delay: 0.7s; }
+        .district-card:nth-child(5) { animation-delay: 0.9s; }
+        .district-card:nth-child(6) { animation-delay: 1.1s; }
+        
+        .district-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .district-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .district-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .district-card:hover .district-image img {
+            transform: scale(1.1);
+        }
+        
+        .district-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--spacing-md);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--light);
+        }
+        
+        .district-overlay h3 {
+            font-size: var(--text-xl);
+            margin-bottom: var(--spacing-xs);
+            color: var(--light);
+        }
+        
+        .district-overlay p {
+            font-size: var(--text-sm);
+            margin: 0;
+        }
+        
+        .district-content {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .district-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark);
+        }
+        
+        .district-title-jp {
+            font-size: var(--text-sm);
+            color: #BC002D;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+        }
+        
+        .district-description {
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .district-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .feature-tag {
+            padding: 5px 10px;
+            background-color: var(--gray-lighter);
+            color: var(--gray-dark);
+            font-size: var(--text-xs);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .feature-tag i {
+            color: #BC002D;
+            font-size: 10px;
+        }
+        
+        .btn-district {
+            display: block;
+            text-align: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: #BC002D;
+            color: var(--light);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        
+        .btn-district:hover {
+            background-color: #9D0024;
+            transform: translateY(-2px);
+        }
+        
+        .highlights-section {
+            background-color: #F9F5F5;
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlights-section::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(188, 0, 45, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .highlights-section::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(188, 0, 45, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .highlights-content {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlights-heading {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .highlights-heading h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-sm);
+            color: #BC002D;
+            position: relative;
+        }
+        
+        .highlights-heading h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #BC002D;
+            margin: var(--spacing-sm) auto 0;
+        }
+        
+        .highlights-heading p {
+            font-size: var(--text-lg);
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+        
+        .highlight-item {
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            animation: fadeIn 1s ease;
+            border-bottom: 3px solid #BC002D;
+        }
+        
+        .highlight-item:nth-child(1) { animation-delay: 0.2s; }
+        .highlight-item:nth-child(2) { animation-delay: 0.4s; }
+        .highlight-item:nth-child(3) { animation-delay: 0.6s; }
+        .highlight-item:nth-child(4) { animation-delay: 0.8s; }
+        
+        .highlight-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .highlight-icon {
+            font-size: var(--text-3xl);
+            color: #BC002D;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .highlight-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark);
+        }
+        
+        .highlight-description {
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+        
+        .seasons-section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .seasons-content {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .seasons-heading {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .seasons-heading h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+        }
+        
+        .seasons-heading h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #BC002D;
+            margin: var(--spacing-sm) auto 0;
+        }
+        
+        .seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+        
+        .season-card {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+        
+        .season-card:nth-child(1) { animation-delay: 0.1s; }
+        .season-card:nth-child(2) { animation-delay: 0.3s; }
+        .season-card:nth-child(3) { animation-delay: 0.5s; }
+        .season-card:nth-child(4) { animation-delay: 0.7s; }
+        
+        .season-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .season-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .season-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .season-card:hover .season-image img {
+            transform: scale(1.1);
+        }
+        
+        .season-content {
+            padding: var(--spacing-md);
+            background-color: var(--light);
+        }
+        
+        .season-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark);
+        }
+        
+        .season-title-jp {
+            font-size: var(--text-sm);
+            color: #BC002D;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .season-description {
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+        
+        .season-highlight {
+            margin-top: var(--spacing-sm);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: #BC002D;
+        }
+        
+        .practical-info-section {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--gray-lighter);
+        }
+        
+        .practical-info-content {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .practical-info-heading {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .practical-info-heading h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+        }
+        
+        .practical-info-heading h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #BC002D;
+            margin: var(--spacing-sm) auto 0;
+        }
+        
+        .practical-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+        
+        .info-card {
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 1s ease;
+        }
+        
+        .info-card:nth-child(1) { animation-delay: 0.1s; }
+        .info-card:nth-child(2) { animation-delay: 0.3s; }
+        .info-card:nth-child(3) { animation-delay: 0.5s; }
+        
+        .info-icon {
+            font-size: var(--text-3xl);
+            color: #BC002D;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .info-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--dark);
+        }
+        
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .info-list li {
+            margin-bottom: var(--spacing-sm);
+            padding-left: var(--spacing-lg);
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .info-list li:before {
+            content: "\f054";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #BC002D;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 992px) {
+            .about-tokyo-content,
+            .practical-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .districts-grid,
+            .highlights-grid,
+            .seasons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tokyo-hero-content h1 {
+                font-size: var(--text-3xl);
+            }
+            
+            .tokyo-hero-content p {
+                font-size: var(--text-md);
+            }
+            
+            .districts-grid,
+            .highlights-grid,
+            .seasons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .tokyo-quick-facts {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--spacing-md);
+            }
+            
+            .quick-fact {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header với thanh điều hướng cải tiến -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="generated-icon.png" alt="Cà Rốt Nè" class="logo-img">
+                <span class="logo-text">Cà Rốt Nè</span>
+            </a>
+
+            <!-- Button toggle mobile menu -->
+            <div class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-container">
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">
+                                <i class="fas fa-home nav-icon"></i>Trang chủ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="vietnam.html" class="nav-link dropdown-toggle">
+                                <i class="fas fa-map-marker-alt nav-icon"></i>Trong nước
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="hanoi.html" class="dropdown-item">Hà Nội</a>
+                                <a href="hochiminh.html" class="dropdown-item">TP. Hồ Chí Minh</a>
+                                <a href="danang.html" class="dropdown-item">Đà Nẵng</a>
+                                <a href="nhatrang.html" class="dropdown-item">Nha Trang</a>
+                                <a href="dalat.html" class="dropdown-item">Đà Lạt</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="asia.html" class="nav-link dropdown-toggle active">
+                                <i class="fas fa-globe-asia nav-icon"></i>Châu Á
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="tokyo.html" class="dropdown-item active">Nhật Bản</a>
+                                <a href="seoul.html" class="dropdown-item">Hàn Quốc</a>
+                                <a href="thailand.html" class="dropdown-item">Thái Lan</a>
+                                <a href="singapore.html" class="dropdown-item">Singapore</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="europe.html" class="nav-link dropdown-toggle">
+                                <i class="fas fa-globe-europe nav-icon"></i>Châu Âu
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="france.html" class="dropdown-item">Pháp</a>
+                                <a href="spain.html" class="dropdown-item">Tây Ban Nha</a>
+                                <a href="italy.html" class="dropdown-item">Ý</a>
+                                <a href="germany.html" class="dropdown-item">Đức</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="map.html" class="nav-link">
+                                <i class="fas fa-map nav-icon"></i>Bản đồ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog.html" class="nav-link">
+                                <i class="fas fa-blog nav-icon"></i>Blog
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contact.html" class="nav-link">
+                                <i class="fas fa-headset nav-icon"></i>Liên hệ
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="nav-actions">
+                        <a href="#" class="nav-button" id="searchToggle">
+                            <i class="fas fa-search"></i>
+                        </a>
+                        <a href="#" class="nav-button">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a href="login.html" class="login-button">
+                            <i class="fas fa-user"></i> Đăng nhập
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <button class="close-search" id="closeSearch">
+                <i class="fas fa-times"></i>
+            </button>
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Tìm kiếm điểm đến...">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Page Overlay -->
+    <div class="page-overlay"></div>
+    
+    <!-- Hero Section -->
+    <section class="tokyo-hero">
+        <div class="tokyo-hero-content">
+            <h1>Tokyo - Thành Phố Tương Lai Với Truyền Thống Lâu Đời</h1>
+            <p>Khám phá sự kết hợp độc đáo giữa công nghệ hiện đại và văn hóa truyền thống tại thủ đô sôi động của Nhật Bản</p>
+            <div class="hero-buttons">
+                <a href="#districts" class="btn btn-primary btn-lg">Khám phá ngay</a>
+                <a href="#practical-info" class="btn btn-outline btn-lg">Thông tin hữu ích</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quick Facts Section -->
+    <section class="container">
+        <div class="tokyo-quick-facts">
+            <div class="quick-fact">
+                <div class="quick-fact-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="quick-fact-value">2,194 km²</div>
+                <div class="quick-fact-label">Diện tích</div>
+            </div>
+            
+            <div class="quick-fact">
+                <div class="quick-fact-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="quick-fact-value">14 triệu</div>
+                <div class="quick-fact-label">Dân số</div>
+            </div>
+            
+            <div class="quick-fact">
+                <div class="quick-fact-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="quick-fact-value">Tiếng Nhật</div>
+                <div class="quick-fact-label">Ngôn ngữ</div>
+            </div>
+            
+            <div class="quick-fact">
+                <div class="quick-fact-icon">
+                    <i class="fas fa-yen-sign"></i>
+                </div>
+                <div class="quick-fact-value">Yên Nhật</div>
+                <div class="quick-fact-label">Tiền tệ</div>
+            </div>
+            
+            <div class="quick-fact">
+                <div class="quick-fact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="quick-fact-value">GMT+9</div>
+                <div class="quick-fact-label">Múi giờ</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Tokyo Section -->
+    <section class="about-tokyo">
+        <div class="about-tokyo-content">
+            <div class="about-tokyo-text">
+                <h2>Về Tokyo</h2>
+                <p>Tokyo, thủ đô của Nhật Bản, là một trong những đô thị lớn và phát triển bậc nhất thế giới. Thành phố này là sự giao thoa độc đáo giữa nét hiện đại với những tòa nhà chọc trời, công nghệ tiên tiến, và nét truyền thống đậm đà với các ngôi đền, chùa cổ kính và vườn Nhật thanh bình.</p>
+                
+                <p>Là trung tâm chính trị, kinh tế, văn hóa và giáo dục của Nhật Bản, Tokyo mang đến cho du khách trải nghiệm độc đáo về một thành phố không bao giờ ngủ với nhịp sống năng động 24/7. Từ những khu phố sầm uất như Shibuya và Shinjuku đến những khu vườn yên bình như Công viên Ueno và Vườn Hoàng gia, Tokyo có điều gì đó cho mọi du khách.</p>
+                
+                <p>Thành phố này cũng là thiên đường ẩm thực với hơn 160.000 nhà hàng, từ các quán sushi truyền thống đến nhà hàng được gắn sao Michelin. Hệ thống giao thông công cộng của Tokyo nổi tiếng thế giới với sự đúng giờ, sạch sẽ và hiệu quả, giúp du khách dễ dàng khám phá mọi ngóc ngách của thành phố này.</p>
+            </div>
+            
+            <div class="about-tokyo-image">
+                <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=800&auto=format" alt="Tokyo cityscape">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Districts Section -->
+    <section id="districts" class="districts-section">
+        <div class="container">
+            <div class="districts-heading">
+                <h2>Khám Phá Các Khu Phố</h2>
+                <p>Tokyo được chia thành nhiều khu phố đặc trưng, mỗi khu phố mang một nét riêng biệt và độc đáo</p>
+            </div>
+            
+            <div class="districts-grid">
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&auto=format" alt="Shibuya">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Shibuya</h3>
+                        <div class="district-title-jp">渋谷区</div>
+                        <p class="district-description">Trung tâm thời trang và văn hóa trẻ của Tokyo, nổi tiếng với giao lộ Shibuya Crossing - một trong những giao lộ đông đúc nhất thế giới. Khu phố này còn có nhiều trung tâm mua sắm, nhà hàng và quán bar sôi động.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Mua sắm</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Ẩm thực</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Giải trí</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?w=800&auto=format" alt="Shinjuku">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Shinjuku</h3>
+                        <div class="district-title-jp">新宿区</div>
+                        <p class="district-description">Trung tâm kinh doanh và giải trí lớn nhất Tokyo với những tòa nhà chọc trời, trung tâm mua sắm, khu giải trí Kabukicho và Công viên Shinjuku Gyoen xinh đẹp - một trong những nơi ngắm hoa anh đào nổi tiếng.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Kinh doanh</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Mua sắm</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Công viên</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1570543922355-c64a19ab2bc7?w=800&auto=format" alt="Asakusa">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Asakusa</h3>
+                        <div class="district-title-jp">浅草</div>
+                        <p class="district-description">Khu phố cổ kính nhất Tokyo với đền Sensoji nổi tiếng và đường phố mua sắm Nakamise-dori. Nơi đây còn giữ được nét truyền thống Edo của Tokyo xưa, là điểm đến không thể bỏ qua khi đến thủ đô Nhật Bản.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Văn hóa</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Đền chùa</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Truyền thống</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1595622111659-073401d0756a?w=800&auto=format" alt="Ginza">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Ginza</h3>
+                        <div class="district-title-jp">銀座</div>
+                        <p class="district-description">Khu mua sắm cao cấp nhất Tokyo với các cửa hàng thương hiệu quốc tế, bách hóa sang trọng, nhà hàng tinh tế và phòng trưng bày nghệ thuật. Vào cuối tuần, đại lộ chính Chuo-dori được đóng cửa để thành phố đi bộ.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Mua sắm cao cấp</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Ẩm thực</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Nghệ thuật</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1551641228-57cc5741bc2f?w=800&auto=format" alt="Akihabara">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Akihabara</h3>
+                        <div class="district-title-jp">秋葉原</div>
+                        <p class="district-description">Được biết đến là thiên đường điện tử và văn hóa otaku với hàng trăm cửa hàng điện tử, manga, anime và các trung tâm giải trí. Khu phố này tràn ngập ánh đèn neon và văn hóa pop hiện đại của Nhật Bản.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Điện tử</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Anime & Manga</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Pop Culture</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-image">
+                        <img src="https://images.unsplash.com/photo-1586083702768-190ae093d34d?w=800&auto=format" alt="Harajuku">
+                    </div>
+                    <div class="district-content">
+                        <h3 class="district-title">Harajuku</h3>
+                        <div class="district-title-jp">原宿</div>
+                        <p class="district-description">Trung tâm thời trang đường phố và văn hóa kawaii của Tokyo. Từ đường Takeshita-dori sôi động đến đại lộ Omotesando sang trọng, Harajuku là nơi những xu hướng mới nhất ra đời và lan tỏa khắp thế giới.</p>
+                        
+                        <div class="district-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Thời trang</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Văn hóa trẻ</span>
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-circle"></i>
+                                <span>Ẩm thực sáng tạo</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn-district">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Highlights Section -->
+    <section class="highlights-section">
+        <div class="highlights-content">
+            <div class="highlights-heading">
+                <h2>Những Điểm Đến Không Thể Bỏ Qua</h2>
+                <p>Khám phá những địa điểm nổi tiếng và đặc sắc nhất tại Tokyo</p>
+            </div>
+            
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <i class="fas fa-torii-gate"></i>
+                    </div>
+                    <h3 class="highlight-title">Đền Meiji</h3>
+                    <p class="highlight-description">Đền thờ Thần đạo lớn nhất Tokyo dành để tưởng nhớ Thiên hoàng Meiji và Hoàng hậu Shoken, nằm trong một khu rừng yên tĩnh rộng 70 hecta với hơn 100.000 cây xanh.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3 class="highlight-title">Tokyo Skytree</h3>
+                    <p class="highlight-description">Tháp truyền hình cao nhất thế giới (634m) với đài quan sát cung cấp tầm nhìn toàn cảnh 360 độ của Tokyo và có thể nhìn thấy núi Phú Sĩ trong ngày đẹp trời.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3 class="highlight-title">Chợ cá Toyosu</h3>
+                    <p class="highlight-description">Kế thừa chợ cá Tsukiji nổi tiếng, đây là nơi diễn ra phiên đấu giá cá ngừ và cung cấp hải sản tươi ngon cho những nhà hàng tốt nhất Tokyo.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <i class="fas fa-chess-rook"></i>
+                    </div>
+                    <h3 class="highlight-title">Cung điện Hoàng gia</h3>
+                    <p class="highlight-description">Nơi ở của Hoàng gia Nhật Bản, nằm trong một khu vườn rộng lớn bao quanh bởi hào nước và tường đá. Khu vườn phía Đông mở cửa cho công chúng vào dịp đặc biệt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seasons Section -->
+    <section class="seasons-section">
+        <div class="seasons-content">
+            <div class="seasons-heading">
+                <h2>Tokyo Qua Bốn Mùa</h2>
+                <p>Mỗi mùa ở Tokyo đều mang vẻ đẹp riêng và những trải nghiệm độc đáo</p>
+            </div>
+            
+            <div class="seasons-grid">
+                <div class="season-card">
+                    <div class="season-image">
+                        <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800&auto=format" alt="Mùa xuân - hoa anh đào">
+                    </div>
+                    <div class="season-content">
+                        <h3 class="season-title">Mùa Xuân</h3>
+                        <div class="season-title-jp">春 (はる - Haru)</div>
+                        <p class="season-description">Thời điểm nổi tiếng nhất để thăm Tokyo khi hoa anh đào (sakura) nở rộ khắp thành phố từ cuối tháng 3 đến đầu tháng 4. Thời tiết dễ chịu với nhiệt độ 10-20°C.</p>
+                        <p class="season-highlight">Điểm nhấn: Hanami (ngắm hoa anh đào) tại công viên Ueno và Shinjuku Gyoen.</p>
+                    </div>
+                </div>
+                
+                <div class="season-card">
+                    <div class="season-image">
+                        <img src="https://images.unsplash.com/photo-1551641304-2a3bcc8ce8e7?w=800&auto=format" alt="Mùa hè - lễ hội pháo hoa">
+                    </div>
+                    <div class="season-content">
+                        <h3 class="season-title">Mùa Hè</h3>
+                        <div class="season-title-jp">夏 (なつ - Natsu)</div>
+                        <p class="season-description">Thời điểm sôi động với nhiều lễ hội (matsuri) và màn trình diễn pháo hoa (hanabi) hoành tráng. Thời tiết nóng và ẩm với nhiệt độ 25-35°C và mưa nhiều.</p>
+                        <p class="season-highlight">Điểm nhấn: Lễ hội pháo hoa Sumida (Sumidagawa Hanabi Taikai).</p>
+                    </div>
+                </div>
+                
+                <div class="season-card">
+                    <div class="season-image">
+                        <img src="https://images.unsplash.com/photo-1594573681713-0580d628a38c?w=800&auto=format" alt="Mùa thu - lá đỏ">
+                    </div>
+                    <div class="season-content">
+                        <h3 class="season-title">Mùa Thu</h3>
+                        <div class="season-title-jp">秋 (あき - Aki)</div>
+                        <p class="season-description">Thời điểm tuyệt đẹp khi lá cây chuyển màu đỏ và vàng (momiji). Thời tiết mát mẻ và dễ chịu với nhiệt độ 15-25°C, rất lý tưởng để khám phá thành phố.</p>
+                        <p class="season-highlight">Điểm nhấn: Ngắm lá phong đỏ tại Công viên Rikugien và Đền Meiji.</p>
+                    </div>
+                </div>
+                
+                <div class="season-card">
+                    <div class="season-image">
+                        <img src="https://images.unsplash.com/photo-1610978232445-4fcb66db5a7e?w=800&auto=format" alt="Mùa đông - tuyết và đèn">
+                    </div>
+                    <div class="season-content">
+                        <h3 class="season-title">Mùa Đông</h3>
+                        <div class="season-title-jp">冬 (ふゆ - Fuyu)</div>
+                        <p class="season-description">Thời điểm với những màn trình diễn ánh sáng rực rỡ, ẩm thực mùa đông đặc trưng và ít khách du lịch hơn. Thời tiết lạnh và khô với nhiệt độ 0-10°C.</p>
+                        <p class="season-highlight">Điểm nhấn: Lễ hội ánh sáng mùa đông và món lẩu nóng hổi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Practical Info Section -->
+    <section id="practical-info" class="practical-info-section">
+        <div class="practical-info-content">
+            <div class="practical-info-heading">
+                <h2>Thông Tin Hữu Ích</h2>
+                <p>Những điều bạn cần biết khi lên kế hoạch du lịch Tokyo</p>
+            </div>
+            
+            <div class="practical-info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-plane-departure"></i>
+                    </div>
+                    <h3 class="info-title">Di chuyển & Đi lại</h3>
+                    <ul class="info-list">
+                        <li>Tokyo có 2 sân bay quốc tế: Narita (NRT) và Haneda (HND)</li>
+                        <li>Hệ thống tàu điện ngầm và JR rất hiệu quả và đúng giờ</li>
+                        <li>Thẻ Suica hoặc Pasmo giúp di chuyển thuận tiện</li>
+                        <li>Tokyo Metro Pass tiết kiệm chi phí di chuyển</li>
+                        <li>Taxi khá đắt đỏ nhưng rất sạch sẽ và an toàn</li>
+                        <li>Google Maps hoạt động tốt cho việc tìm đường</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-yen-sign"></i>
+                    </div>
+                    <h3 class="info-title">Chi phí & Thanh toán</h3>
+                    <ul class="info-list">
+                        <li>Tiền mặt vẫn được sử dụng phổ biến tại Nhật Bản</li>
+                        <li>ATM quốc tế có tại các cửa hàng 7-Eleven</li>
+                        <li>Chi phí ăn uống: ¥1,000-3,000 một bữa</li>
+                        <li>Khách sạn: từ ¥8,000/đêm cho phòng đơn</li>
+                        <li>Vé tàu điện ngầm: khoảng ¥170-310 mỗi chuyến</li>
+                        <li>Tiền tip không phổ biến tại Nhật Bản</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="info-title">Mẹo hữu ích</h3>
+                    <ul class="info-list">
+                        <li>Học một vài câu tiếng Nhật cơ bản</li>
+                        <li>Tải ứng dụng dịch để giao tiếp thuận tiện</li>
+                        <li>Mang theo khăn giấy ướt (không có khăn giấy trong nhà vệ sinh)</li>
+                        <li>Tránh nói chuyện điện thoại trên phương tiện công cộng</li>
+                        <li>Xếp hàng là văn hóa quan trọng ở Nhật Bản</li>
+                        <li>Đúng giờ trong mọi cuộc hẹn và hoạt động</li>
+                        <li>Free WiFi có sẵn tại nhiều khu vực công cộng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Đăng ký nhận thông tin ưu đãi về Tokyo</h2>
+                <p class="newsletter-text">Nhận thông tin về các chương trình khuyến mãi và cẩm nang du lịch Tokyo hữu ích mới nhất.</p>
+                
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn" class="newsletter-input" required>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Về Cà Rốt Nè</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Tầm nhìn & Sứ mệnh</a></li>
+                        <li><a href="#">Đội ngũ</a></li>
+                        <li><a href="#">Đối tác</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Tour du lịch</h3>
+                    <ul class="footer-list">
+                        <li><a href="vietnam.html">Việt Nam</a></li>
+                        <li><a href="tokyo.html">Nhật Bản</a></li>
+                        <li><a href="seoul.html">Hàn Quốc</a></li>
+                        <li><a href="spain.html">Tây Ban Nha</a></li>
+                        <li><a href="#">Xem tất cả</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Hỗ trợ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Chính sách đặt tour</a></li>
+                        <li><a href="#">Chính sách hoàn hủy</a></li>
+                        <li><a href="#">Quyền riêng tư</a></li>
+                        <li><a href="contact.html">Liên hệ hỗ trợ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-list">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Nguyễn Huệ, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone mr-2"></i> 1900 1234</li>
+                        <li><i class="fas fa-envelope mr-2"></i> info@carotne.vn</li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Cà Rốt Nè Travel. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbox-content">
+            <div class="chatbox-header">
+                <div class="chatbox-title">Hỗ trợ trực tuyến</div>
+                <div class="chatbox-close"><i class="fas fa-times"></i></div>
+            </div>
+            
+            <div class="chatbox-messages">
+                <!-- Messages will be added dynamically -->
+            </div>
+            
+            <div class="chatbox-input">
+                <form>
+                    <input type="text" class="chat-input" placeholder="Nhập tin nhắn...">
+                    <button type="submit" class="chat-submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

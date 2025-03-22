@@ -3,158 +3,896 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chào Chị Thúy</title>
-    <link rel ="stysheet" href="rol.css"> 
+    <title>Cà Rốt Nè - Du lịch thoải mái, trải nghiệm tuyệt vời</title>
+    <link rel="stylesheet" href="global-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        body {
-    background-image: url('../image/a7d76bebb10f0051591e.jpg'); /* Đường dẫn đến ảnh */
-    background-size: cover; /* Ảnh phủ toàn bộ màn hình */
-    background-position: center; /* Căn giữa ảnh */
-    background-repeat: no-repeat; /* Không lặp lại ảnh */
-}
-        #chatbox { background-image: url('/image/3f7ea289bd6d0c33557c.jpg'); /* Đường dẫn ảnh */
-    background-size: cover;  /* Ảnh phủ kín */
-    background-position: center; /* Căn giữa */
-    background-repeat: no-repeat; /* Không lặp ảnh */
-    width: 400px; /* Kích thước khung chat */
-    height: 500px;
-    border-radius: 10px; /* Bo tròn góc */
-    padding: 10px;
-    overflow: auto;
-    width: 90%; max-width: 400px; margin: auto; border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto;  }
-        .message { padding: 8px; border-radius: 5px; margin: 5px; max-width: 80%; }
-        .user { background: rgb(159, 200, 241); color: rgb(60, 13, 13); text-align: right; float: right; }
-        .bot { background: #DDD; float: left; }
-        .clear { clear: both; }
-        input, button { padding: 10px; margin-top: 10px; }
-        img {max-width: 100%; border-radius: 5px; }
-        .modal {
-    display: flex;
-    position: fixed;
-    z-index: 1000;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
+        /* Homepage specific styles */
+        .hero-carousel {
+            height: 80vh;
+            position: relative;
+            margin-top: 80px;
+        }
 
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
+        .hero-slide {
+            height: 80vh;
+            position: relative;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+        }
+
+        .hero-slide-content {
+            max-width: 800px;
+            padding: 0 var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        .slick-dots {
+            bottom: 25px;
+        }
+
+        .slick-dots li button:before {
+            color: var(--light);
+            opacity: 0.5;
+            font-size: 12px;
+        }
+
+        .slick-dots li.slick-active button:before {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        .offer-card {
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            z-index: 1;
+            font-size: var(--text-sm);
+        }
+
+        .offer-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .offer-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .offer-card:hover .offer-img img {
+            transform: scale(1.1);
+        }
+
+        .offer-content {
+            padding: var(--spacing-lg);
+        }
+
+        .offer-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .offer-location {
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .offer-location i {
+            color: var(--primary);
+        }
+
+        .offer-prices {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .offer-old-price {
+            color: var(--gray-dark);
+            text-decoration: line-through;
+            font-size: var(--text-sm);
+        }
+
+        .offer-new-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: var(--text-lg);
+        }
+
+        .offer-expiry {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .offer-expiry-text {
+            font-size: var(--text-sm);
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .offer-progress {
+            height: 5px;
+            background-color: var(--gray-lighter);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .offer-progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .why-choose-us {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--gray-lighter);
+        }
+
+        .why-choose-us-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .reason {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .reason:hover {
+            transform: translateY(-10px);
+        }
+
+        .reason-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .reason-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .reason-text {
+            color: var(--gray-dark);
+            font-size: var(--text-sm);
+        }
+
+        .special-offers-section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .special-offers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .destinations-section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .featured-destinations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .popular-section {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--gray-lighter);
+        }
+
+        .popular-destinations {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .testimonials-section {
+            padding: var(--spacing-2xl) 0;
+            background-color: #FFF9F9;
+        }
+
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: var(--text-xl);
+            font-style: italic;
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 48px;
+            color: var(--primary);
+            opacity: 0.2;
+            position: absolute;
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: -20px;
+        }
+
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            margin-bottom: var(--spacing-md);
+            border: 3px solid var(--primary);
+        }
+
+        .testimonial-name {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .testimonial-role {
+            color: var(--gray);
+            font-size: var(--text-sm);
+        }
+
+        .cta-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: var(--light);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-text {
+            font-size: var(--text-lg);
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.9;
+        }
+
+        .btn-cta {
+            background-color: var(--light);
+            color: var(--primary);
+            font-weight: 700;
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: var(--text-lg);
+            border-radius: var(--radius-full);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            color: var(--primary-dark);
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .why-choose-us-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .special-offers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-destinations {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .popular-destinations {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-slide {
+                height: 70vh;
+            }
+
+            .hero-carousel {
+                height: 70vh;
+                margin-top: 70px;
+            }
+
+            .hero-slide-content h1 {
+                font-size: var(--text-3xl);
+            }
+
+            .hero-slide-content p {
+                font-size: var(--text-md);
+            }
+
+            .why-choose-us-content {
+                grid-template-columns: 1fr;
+            }
+
+            .special-offers {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-destinations {
+                grid-template-columns: 1fr;
+            }
+
+            .popular-destinations {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-text {
+                font-size: var(--text-lg);
+            }
+
+            .cta-title {
+                font-size: var(--text-2xl);
+            }
+
+            .cta-text {
+                font-size: var(--text-md);
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="chatModal" class="modal">
-        <div class="modal-content">
-            <h2>Chào mừng!</h2>
-            <p>Hãy nhấn vào nút bắt đầu.</p>
-            <button onclick="closeModal()">Bắt đầu</button>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Cà Rốt Nè" class="logo-img">
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Trang chủ</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="vietnam.html" class="nav-link">Trong nước <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="hanoi.html" class="dropdown-item">Hà Nội</a>
+                            <a href="hochiminh.html" class="dropdown-item">TP. Hồ Chí Minh</a>
+                            <a href="danang.html" class="dropdown-item">Đà Nẵng</a>
+                            <a href="nhatrang.html" class="dropdown-item">Nha Trang</a>
+                            <a href="dalat.html" class="dropdown-item">Đà Lạt</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="asia.html" class="nav-link">Châu Á <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="japan.html" class="dropdown-item">Nhật Bản</a>
+                            <a href="korea.html" class="dropdown-item">Hàn Quốc</a>
+                            <a href="thailand.html" class="dropdown-item">Thái Lan</a>
+                            <a href="singapore.html" class="dropdown-item">Singapore</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="europe.html" class="nav-link">Châu Âu <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="france.html" class="dropdown-item">Pháp</a>
+                            <a href="spain.html" class="dropdown-item">Tây Ban Nha</a>
+                            <a href="italy.html" class="dropdown-item">Ý</a>
+                            <a href="germany.html" class="dropdown-item">Đức</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="map.html" class="nav-link">Bản đồ</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link contact-link">
+                        <i class="fas fa-headset"></i> Liên hệ
+                    </a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <div class="hero-carousel">
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1800&h=900&fit=crop&auto=format');">
+            <div class="hero-slide-content">
+                <h1 class="hero-title">Khám phá Thế giới cùng Cà Rốt Nè</h1>
+                <p class="hero-subtitle">Tìm kiếm những điểm đến tuyệt vời và tạo nên những kỷ niệm đáng nhớ</p>
+                <div class="hero-buttons">
+                    <a href="#destinations" class="btn btn-primary btn-lg">Khám phá ngay</a>
+                    <a href="contact.html" class="btn btn-outline btn-lg">Liên hệ với chúng tôi</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?w=1800&h=900&fit=crop&auto=format');">
+            <div class="hero-slide-content">
+                <h1 class="hero-title">Việt Nam - Thiên đường Du lịch Đông Nam Á</h1>
+                <p class="hero-subtitle">Khám phá vẻ đẹp thiên nhiên và văn hóa đa dạng của Việt Nam</p>
+                <div class="hero-buttons">
+                    <a href="vietnam.html" class="btn btn-primary btn-lg">Khám phá Việt Nam</a>
+                    <a href="#offers" class="btn btn-outline btn-lg">Xem ưu đãi</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=1800&h=900&fit=crop&auto=format');">
+            <div class="hero-slide-content">
+                <h1 class="hero-title">Tokyo - Thành Phố Tương Lai Với Truyền Thống Lâu Đời</h1>
+                <p class="hero-subtitle">Khám phá sự kết hợp độc đáo giữa hiện đại và truyền thống tại Nhật Bản</p>
+                <div class="hero-buttons">
+                    <a href="tokyo.html" class="btn btn-primary btn-lg">Khám phá Tokyo</a>
+                    <a href="#offers" class="btn btn-outline btn-lg">Xem ưu đãi</a>
+                </div>
+            </div>
         </div>
     </div>
-    <h3>LDLD </h3>
-    <div id="chatbox"></div>
-     
-    <input type="text" id="userInput" placeholder="Nhập tin nhắn..." onkeypress="handleKeyPress(event)">
-    <button onclick="sendMessage()">Gửi</button>
-    <button onclick="sendImage()">Ảnh</button>
-    
-    <input type="file" id="imageInput" accept="image/*" onchange="previewImage()">
-    
-    <script>
-        function sendMessage() {
-            var input = document.getElementById("userInput").value;
-            if (input.trim() === "") return;
-            
-            addMessage(input, "user");
 
-            setTimeout(() => {
-                var response = getBotResponse(input);
-                addMessage(response, "bot");
-            }, 500);
-            
-            document.getElementById("userInput").value = "";
-        }
+    <!-- Search Form -->
+    <div class="container">
+        <div class="search-form">
+            <form action="search.html" method="get">
+                <div class="search-inputs">
+                    <div class="search-group">
+                        <label for="search-destination" class="search-label">Điểm đến</label>
+                        <input type="text" id="search-destination" name="destination" placeholder="Bạn muốn đi đâu?" class="search-input">
+                    </div>
 
-        function addMessage(text, sender) {
-            var chatbox = document.getElementById("chatbox");
-            var messageDiv = document.createElement("div");
-            messageDiv.classList.add("message", sender);
-            messageDiv.innerHTML = text;
-            chatbox.appendChild(messageDiv);
-            chatbox.appendChild(document.createElement("div")).classList.add("clear");
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
+                    <div class="search-group">
+                        <label for="search-region" class="search-label">Khu vực</label>
+                        <select id="search-region" name="region" class="search-input">
+                            <option value="all">Tất cả</option>
+                            <option value="Đông Nam Á">Đông Nam Á</option>
+                            <option value="Châu Á">Châu Á</option>
+                            <option value="Châu Âu">Châu Âu</option>
+                        </select>
+                    </div>
 
-        function getBotResponse(input) {
-            var responses = {
-                "long":"Dạ ai vậy.",
-                "ê":"Dạ ai vậy.",
-                "xin chào": "Chào bạn! Tôi là chatbot có thể gửi ảnh.",
-                "bạn là ai": "Tôi là chatbot do bạn tạo ra!",
-                "gửi ảnh": "Bạn có thể nhấn nút 'Gửi Ảnh' để tôi gửi ảnh.",
-                "bye": "Tạm biệt! Hẹn gặp lại.",
-                "hưng": "hưng là ai ?",
-                "1945":"Cách mạng Tháng Tám năm 1945 - sự kiện vĩ đại trong lịch sử dân tộc Việt Nam",
-                "gửi video":'<iframe width="300" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>'
-            };
-            return responses[input.toLowerCase()] || "Tôi không hiểu, bạn có thể hỏi lại!";
-        }
+                    <div class="search-group">
+                        <label for="search-duration" class="search-label">Thời gian</label>
+                        <select id="search-duration" name="duration" class="search-input">
+                            <option value="all">Tất cả</option>
+                            <option value="short">Ngắn ngày (1-3 ngày)</option>
+                            <option value="medium">Trung bình (4-7 ngày)</option>
+                            <option value="long">Dài ngày (8+ ngày)</option>
+                        </select>
+                    </div>
 
-        function sendImage() {
-            var images = [
-        "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-thien-nhien-dep-3d-22.jpg",
-        "https://media.istockphoto.com/id/517188688/vi/anh/phong-c%E1%BA%A3nh-n%C3%BAi-non.jpg?s=612x612&w=0&k=20&c=WWWaejSo6EWGZMZSK7QK6LCfwd0rL2KB3ImCX2VkW4A=",
-        
-    ];
-       var randomIndex = Math.floor(Math.random() * images.length);
-    
-    var chatbox = document.getElementById("chatbox");
-    var img = document.createElement("img");
-    img.src = images[randomIndex];  
-    img.classList.add("message", "bot");
+                    <button type="submit" class="btn btn-primary search-button">
+                        <i class="fas fa-search mr-2"></i> Tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    chatbox.appendChild(img);
-    chatbox.appendChild(document.createElement("div")).classList.add("clear");
-    chatbox.scrollTop = chatbox.scrollHeight;
-}
-        function previewImage() {
-            var file = document.getElementById("imageInput").files[0];
-            var reader = new FileReader();
+    <!-- Why Choose Us -->
+    <section class="why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Tại sao chọn Cà Rốt Nè?</h2>
+            <p class="section-subtitle">Chúng tôi cam kết mang đến cho bạn những trải nghiệm du lịch tốt nhất</p>
 
-            reader.onload = function(e) {
-                var img = document.createElement("img");
-                img.src = e.target.result;
-                img.classList.add("message", "user");
+            <div class="why-choose-us-content">
+                <div class="reason">
+                    <div class="reason-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="reason-title">Điểm đến đa dạng</h3>
+                    <p class="reason-text">Hơn 500+ điểm đến hấp dẫn trên khắp thế giới, từ những bãi biển tuyệt đẹp đến những ngọn núi hùng vĩ.</p>
+                </div>
 
-                var chatbox = document.getElementById("chatbox");
-                chatbox.appendChild(img);
-                chatbox.appendChild(document.createElement("div")).classList.add("clear");
-                chatbox.scrollTop = chatbox.scrollHeight;
-            };
+                <div class="reason">
+                    <div class="reason-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="reason-title">Giá cả cạnh tranh</h3>
+                    <p class="reason-text">Chúng tôi cung cấp các gói tour chất lượng với mức giá tốt nhất thị trường và không có phí ẩn.</p>
+                </div>
 
-            if (file) reader.readAsDataURL(file);
-        }
+                <div class="reason">
+                    <div class="reason-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="reason-title">Hỗ trợ 24/7</h3>
+                    <p class="reason-text">Đội ngũ hỗ trợ chuyên nghiệp luôn sẵn sàng giúp đỡ bạn 24/7, dù bạn ở bất kỳ đâu trên thế giới.</p>
+                </div>
 
-        function handleKeyPress(event) {
-            if (event.key === "Enter") sendMessage();
-        }
-        window.onload = function() {
-    alert("Chào mừng! Hãy bắt đầu cuộc trò chuyện.");
-    
-};
-function closeModal() {
-    document.getElementById("chatModal").style.display = "none";
-}
-    </script>
+                <div class="reason">
+                    <div class="reason-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="reason-title">An toàn & Tin cậy</h3>
+                    <p class="reason-text">Với hơn 10 năm kinh nghiệm, chúng tôi cam kết đảm bảo an toàn và sự tin cậy trong mỗi chuyến đi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Special Offers -->
+    <section id="offers" class="special-offers-section">
+        <div class="container">
+            <h2 class="section-title">Ưu đãi đặc biệt</h2>
+            <p class="section-subtitle">Nhanh tay đặt ngay để nhận những ưu đãi hấp dẫn</p>
+
+            <div class="special-offers">
+                <!-- Rendered dynamically from destinations.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section id="destinations" class="destinations-section">
+        <div class="container">
+            <h2 class="section-title">Điểm đến nổi bật</h2>
+            <p class="section-subtitle">Khám phá những điểm đến thu hút nhiều du khách nhất</p>
+
+            <div class="featured-destinations">
+                <!-- Rendered dynamically from destinations.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="popular-section">
+        <div class="container">
+            <h2 class="section-title">Điểm đến phổ biến</h2>
+            <p class="section-subtitle">Những nơi được nhiều du khách lựa chọn</p>
+
+            <div class="popular-destinations">
+                <!-- Rendered dynamically from destinations.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">Khách hàng nói gì về chúng tôi</h2>
+            <p class="section-subtitle">Những đánh giá chân thực từ khách hàng đã trải nghiệm dịch vụ của Cà Rốt Nè</p>
+
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p class="testimonial-text">Tour du lịch Nhật Bản của Cà Rốt Nè thực sự tuyệt vời. Hướng dẫn viên nhiệt tình, lịch trình hợp lý và dịch vụ chuyên nghiệp. Tôi sẽ quay lại trong tương lai!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Nguyễn Thị Hương" class="testimonial-avatar">
+                        <h4 class="testimonial-name">Nguyễn Thị Hương</h4>
+                        <p class="testimonial-role">Tour Tokyo, tháng 5/2023</p>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">Chuyến đi Hàn Quốc cùng gia đình thật đáng nhớ. Cà Rốt Nè đã sắp xếp mọi thứ rất tốt, từ khách sạn, phương tiện đến các điểm tham quan. Cảm ơn vì trải nghiệm tuyệt vời!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Trần Văn Minh" class="testimonial-avatar">
+                        <h4 class="testimonial-name">Trần Văn Minh</h4>
+                        <p class="testimonial-role">Tour Seoul, tháng 3/2023</p>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">Tôi đã có chuyến du lịch Tây Ban Nha tuyệt vời nhờ Cà Rốt Nè. Dịch vụ chuyên nghiệp, hướng dẫn viên thân thiện và hiểu biết sâu sắc về văn hóa địa phương. Chắc chắn sẽ giới thiệu cho bạn bè!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/62.jpg" alt="Phạm Thu Trang" class="testimonial-avatar">
+                        <h4 class="testimonial-name">Phạm Thu Trang</h4>
+                        <p class="testimonial-role">Tour Madrid & Barcelona, tháng 7/2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Đăng ký nhận thông tin ưu đãi</h2>
+                <p class="newsletter-text">Nhận thông tin về các chương trình khuyến mãi và cẩm nang du lịch hữu ích mới nhất.</p>
+
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn" class="newsletter-input" required>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Sẵn sàng cho chuyến phiêu lưu tiếp theo?</h2>
+                <p class="cta-text">Liên hệ với đội ngũ tư vấn của chúng tôi để được hỗ trợ lên kế hoạch cho chuyến đi của bạn.</p>
+                <a href="contact.html" class="btn btn-cta">Liên hệ ngay</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160">
+                <path fill="#ffffff" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,80C672,64,768,64,864,80C960,96,1056,128,1152,133.3C1248,139,1344,117,1392,106.7L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            </svg>
+        </div>
+
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo-section">
+                    <img src="assets/logo-light.svg" alt="Cà Rốt Nè" class="footer-logo">
+                    <p class="footer-tagline">Khám phá thế giới. Tạo nên kỷ niệm.</p>
+                    <div class="social-links footer-social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>Về Cà Rốt Nè</h3>
+                        <ul class="footer-list">
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Giới thiệu</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Tầm nhìn & Sứ mệnh</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Đội ngũ</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Đối tác</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Tuyển dụng</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Tour du lịch</h3>
+                        <ul class="footer-list">
+                            <li><a href="vietnam.html"><i class="fas fa-angle-right"></i> Việt Nam</a></li>
+                            <li><a href="tokyo.html"><i class="fas fa-angle-right"></i> Nhật Bản</a></li>
+                            <li><a href="seoul.html"><i class="fas fa-angle-right"></i> Hàn Quốc</a></li>
+                            <li><a href="spain.html"><i class="fas fa-angle-right"></i> Tây Ban Nha</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Xem tất cả</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Hỗ trợ</h3>
+                        <ul class="footer-list">
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Câu hỏi thường gặp</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Chính sách đặt tour</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Chính sách hoàn hủy</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Quyền riêng tư</a></li>
+                            <li><a href="contact.html"><i class="fas fa-angle-right"></i> Liên hệ hỗ trợ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-middle">
+                <div class="footer-contact-info">
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            <h4>Địa chỉ</h4>
+                            <p>123 Nguyễn Huệ, Quận 1, TP.HCM</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            <h4>Hotline</h4>
+                            <p>1900 1234</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            <h4>Email</h4>
+                            <p>info@carotne.vn</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            <h4>Giờ làm việc</h4>
+                            <p>08:00 - 18:00, Thứ 2 - Thứ 7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2023 Cà Rốt Nè Travel. Tất cả quyền được bảo lưu.</p>
+                    </div>
+                    <div class="footer-payment">
+                        <span>Chấp nhận thanh toán:</span>
+                        <div class="payment-icons">
+                            <img src="https://cdn-icons-png.flaticon.com/128/349/349221.png" alt="Visa" width="32">
+                            <img src="https://cdn-icons-png.flaticon.com/128/349/349228.png" alt="MasterCard" width="32">
+                            <img src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Paypal" width="32">
+                            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968299.png" alt="Momo" width="32">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Social Bar -->
+    <div class="social-bar">
+        <a href="#" class="social-bar-link facebook">
+            <i class="fab fa-facebook-f"></i>
+            <span class="social-bar-tooltip">Theo dõi chúng tôi trên Facebook</span>
+        </a>
+        <a href="#" class="social-bar-link zalo">
+            <i class="fas fa-comment"></i>
+            <span class="social-bar-tooltip">Chat với chúng tôi qua Zalo</span>
+        </a>
+        <a href="tel:1900123456" class="social-bar-link phone">
+            <i class="fas fa-phone-alt"></i>
+            <span class="phone-number">1900 123 456</span>
+            <span class="social-bar-tooltip">Gọi cho chúng tôi</span>
+        </a>
+    </div>
+
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-toggle">
+            <i class="fas fa-headset"></i>
+        </div>
+
+        <div class="chatbox-content">
+            <div class="chatbox-header">
+                <div class="chatbox-title">
+                    <i class="fas fa-user-headset"></i>
+                    Hỗ trợ trực tuyến
+                    <span class="chatbox-online-indicator"></span>
+                </div>
+                <div class="chatbox-close"><i class="fas fa-times"></i></div>
+            </div>
+
+            <div class="chatbox-info">
+                Chào mừng bạn đến với Cà Rốt Nè! Chúng tôi có thể giúp gì cho bạn?
+            </div>
+
+            <div class="chatbox-messages">
+                <div class="message message-bot">
+                    <div class="d-flex align-center">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Support" class="message-avatar">
+                        <div class="message-content">
+                            Xin chào! Tôi là trợ lý ảo của Cà Rốt Nè. Tôi có thể giúp bạn tìm tour du lịch, cung cấp thông tin về điểm đến, hoặc giải đáp các thắc mắc của bạn.
+                        </div>
+                    </div>
+                    <div class="message-time">11:30</div>
+                </div>
+
+                <div class="message message-bot">
+                    <div class="d-flex align-center">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Support" class="message-avatar">
+                        <div class="message-content">
+                            Bạn muốn được tư vấn về điểm du lịch nào?
+                        </div>
+                    </div>
+                    <div class="message-time">11:31</div>
+                </div>
+            </div>
+
+            <div class="chatbox-typing">
+                <span>Tư vấn viên đang nhập</span>
+                <div class="typing-indicator">
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            </div>
+
+            <div class="chatbox-quick-replies">
+                <span class="quick-reply">Tour Nhật Bản</span>
+                <span class="quick-reply">Tour Hàn Quốc</span>
+                <span class="quick-reply">Tour trong nước</span>
+                <span class="quick-reply">Báo giá</span>
+                <span class="quick-reply">Liên hệ tư vấn viên</span>
+            </div>
+
+            <div class="chatbox-input">
+                <div class="chat-options">
+                    <span class="chat-option"><i class="far fa-smile"></i></span>
+                    <span class="chat-option"><i class="fas fa-paperclip"></i></span>
+                </div>
+                <input type="text" class="chat-input" placeholder="Nhập tin nhắn...">
+                <button type="submit" class="chat-submit"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="main.js"></script>
+    <script src="destinations.js"></script>
 </body>
 </html>
